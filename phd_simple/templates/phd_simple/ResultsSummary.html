@@ -1,0 +1,20 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %}
+    Final results 
+{% endblock %}
+
+{% block content %}
+    <p> 
+        You have reached round {{paying_round}}, which is the paying round.
+        Your total earned bonus is {{total_payoff}}. You get USD {{participation_fee}} for your
+        participation. Taken together, you will receive, {{total_payout}}.
+    </p>
+
+{% next_button %} 
+
+{% endblock %}
+
+
+

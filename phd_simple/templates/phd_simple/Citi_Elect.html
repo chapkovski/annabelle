@@ -1,0 +1,40 @@
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %} Citizens's allocation {% endblock %}
+
+{% block content %}
+    <br>
+      <p> You received {{group.allocation_bureau}} through other players. </p>
+        {% if visible %}
+        <br>
+        <div style="color:#0000FF"> 
+        <p> This round the politician gave {{group.allocation_pol}} to the bureaucrat.
+         The bureaucrat then gave {{group.allocation_bureau}} to you. The politician
+         kept {{group.slack_pol}} for other political purposes. The bureaucrat used
+         {{group.slack_bureau}} on other matters for the bureau. </p>
+        </div>
+        <br>
+
+        {% endif %}
+
+{% if enough_money %}
+
+<p> It will cost you {{group.monitoring_cost}} to turn out to vote. </p>
+
+
+    {% formfield group.is_elected %}
+
+{% endif %}
+
+{% if not_enough_money %}
+
+<p> Oh, no! It seems you do not have enough money to turn out to vote. Back to the grind for you! </p>
+
+{% endif %}
+
+    {% next_button %}
+
+    {{ form.is_elected.errors }}
+    
+{% endblock %}

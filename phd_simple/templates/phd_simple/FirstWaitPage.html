@@ -1,0 +1,68 @@
+{% extends 'phd_simple/CustomWaitPage.html' %}
+{% load staticfiles otree_tags %}
+{% block title %}Please wait!{% endblock %}
+{% block styles %}
+    <style>
+        #left_to_wait {
+            font-weight: bold;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    {{ block.super }}
+    {% if subsession.not_enough_players %}
+
+        <div id="not_enough_players" class="alert alert-danger" role="alert">
+            Unfortunately, one of the other partipants has left. Now
+            there is no enough participants left to complete the study.
+            <br>
+            Please, click 'Finish the study'.
+            <br>
+            <b>You are still eligible for the participation fee!</b>
+            <br>
+            We apologise for the inconvenience.
+        </div>
+    {% else %}
+        <div id="otree-timeout-warning" class="alert alert-warning" style="display:block;">
+            <p>You can finish the study if nobody arrives in:
+                <span class="glyphicon glyphicon-time"></span>
+                <strong><span id="otree-timer__time-left"></span></strong>
+            </p>
+        </div>
+    {% endif %}
+    <form action="" method="post" role="form" class="form">
+        {% csrf_token %}
+        <div>
+            <button class="btn btn-primary" id='finish_study'
+                    style="display:    {% if subsession.not_enough_players %}inline{% else %}none{% endif %};"
+                    name="endofgame" value="{{ player.pk }}">
+                Finish the study
+            </button>
+        </div>
+        <br>
+    </form>
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+<script src="{% static 'otree/js/jquery.countdown.min.js' %}"></script>
+
+    <script type="text/javascript">
+{#        $('div#otree-timeout').show();#}
+        var currentDate = new Date();
+        var milliseconds = Math.floor({{ time_left|json }} * 1000);
+        $('div#otree-timeout-warning').show();
+        $('span#otree-timer__time-left').countdown(currentDate.valueOf() + milliseconds)
+            .on('update.countdown', function (event) {
+                // %-N is "Total count of minutes till the end, non-padded"
+                // %S is seconds left
+                var format = '%-N:%S';
+                $(this).html(event.strftime(format));
+            })
+            .on('finish.countdown', function (event) {
+                $('div#otree-timeout-warning').hide(duration = 0);
+                $('#finish_study').show();
+            });
+    </script>
+
+{% endblock %}

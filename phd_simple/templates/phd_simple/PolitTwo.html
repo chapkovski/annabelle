@@ -1,0 +1,34 @@
+
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %} Politician's self-allocation {% endblock %}
+
+{% block content %}
+<p>     <strong> Remember </strong>: The amount you allocate to the
+                bureaucrat can be used by them to spend it on common pool
+                projects or directly on your citizens.
+                The budget that you do <strong> not </strong> allocate to
+                the bureaucrat will be allocated to the common pool.
+                The common pool money is multiplied by a random number and
+                divided between you, the bureaucrat and the citizen.
+                The money you keep for other political purposes remains under
+                your control. </p> <br>
+                
+    {% if visible %}
+    <div style="color:#0000FF">
+    <p> Last round the bureaucrat gave {{bureau_alloc}} to the citizen and kept {{bureau_self}} for the bureau. </p>
+    </div>
+    {% endif %}
+
+    {% formfield group.slack_pol %}
+
+
+    {% next_button %}
+
+     {{ form.specific_given.errors }}  
+
+{% endblock %}
+
+
+   

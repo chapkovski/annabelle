@@ -1,0 +1,65 @@
+
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %} Game -- Rules {% endblock %}
+
+{% block content %} 
+
+
+    <h4> <strong> Make sure you study these rules carefully, to
+     get the most out of the game. </strong> </h4>
+
+    <p> Welcome to R-Town. In this game, there are four players:
+        the politician, the bureaucrat, the citizen and a potential political
+        competitor. You will be randomly allocated one of these roles. </p>
+    <p> R-Town as many other towns allocates public money in the following way:
+        First, the legislature (the politician here) sets a budget for an agency
+        (the bureaucrat) to implement programmes that go to various causes and
+        sometimes directly to citizens (the citizen). </p>
+    <p> The currency of R-Town are <i> Rollars </i>. Throughout the game you
+        will be dealing in <i> Rollars </i>. These will be converted to actual,
+        real-life US Dollars ($) at the end of the game. </p>
+    <p> You can earn up to USD 3.29 in this game, depending on your performance. </p>
+    <p> Be aware that you can also lose points. However, you can never be charged money. The worst outcome is that you lose all $1.74.</p>
+
+    {% if politician %}
+    <p> You are the politician. In this game, you have three ways of allocating R-Town's public money:
+    (1) you give it to the bureaucrat who runs the Department of RAWRs, or
+    (2) you allocate it 'the common pool' (akin to a national pension fund),
+    which is a fund that can increase in value over the period of the game and
+    gets equally distributed between you and the other players,
+    (3) you keep it for your own political purposes.
+     </p>
+    {% elif  bureaucrat  %}
+    <p> You are the bureaucrat. In this game, you will receive money from the politician. You have three ways of
+     allocating R-Town's public money:
+    (1) you give it directly to the citizen, or
+    (2) you allocate it 'the common pool' (akin to a national pension fund),
+    which is a fund that can increase in value over the period of the game and
+    gets equally distributed between you and the other players,
+    (3) you keep it for the bureaucracy. 
+    The money in this pool might increase. It can increase by up to 20%. </p>
+    {% elif  citizen  %}
+    <p> You are the citizen. In this game, you can receive a proportion of the public funds of R-Town.
+    Either you receive them directly from the bureaucrat at R-Town's Department of RAWRs,
+    or you receive them through payouts from a 'common pool'.
+    The 'common pool' is (akin to a national pension fund), which is a fund that can increase in value over
+    the period of the game and gets equally distributed between you and the other players.</p>
+    {% else %}
+    <p> You are the political competitor. While the current politican, bureaucrat and citizen are playing
+        you are given another political task. This task can earn you the same maximum amount of USD 3.29 as
+        is the case for the other players. The final payout depends on your performance on the task.
+        During the game, there will be multiple occasions for elections. If you get elected you will assume
+        the role of the politician. If that happens you will receive additional instructions about your role and
+        payoffs. </p>
+    {% endif %}
+
+    <p> Please answer the following questions before proceeding. </p>
+    <p> What is the 'common pool'? {% formfield player.question_1 %} </p>
+    <p> What happens to the Rollars that get allocated to you? {% formfield player.question_2 %} </p> 
+
+    {% next_button %} 
+
+{% endblock %}
+

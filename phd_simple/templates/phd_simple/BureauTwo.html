@@ -1,0 +1,37 @@
+
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %} Bureaucrat's self-allocation {% endblock %}
+
+{% block content %}
+
+{% if visible %}
+<div style="color:#0000FF">
+    <p> The politician allocated {{group.allocation_pol}} to you and {{common_pool_p}}
+        to the common pool in this round. They kept {{group.slack_pol}} for other political
+        purposes. </p>
+</div>
+        
+{% endif %}
+
+    
+    <p> Now, please decide how you will allocate the budget. </p>
+    <p>     <strong> Remember </strong>: The budget that you allocate to
+                the citizen goes directly to them.
+                The budget that you do <strong> not </strong> allocate to
+                the citizen will be allocated to the common pool.
+                The common pool money is multiplied by a random number and
+                divided between you, the bureaucrat and the citizen.
+                The money that you allocate to the bureau remains under your
+                discretion. </p>
+
+
+    {% formfield group.slack_bureau %}
+
+    {{ form.agenda_feedback.errors }}
+    
+    {% next_button %}
+    
+{% endblock %}
+

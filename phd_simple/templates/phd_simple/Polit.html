@@ -1,0 +1,65 @@
+
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %} Politician's self-allocation {% endblock %}
+
+{% block content %}
+
+    <p> You were the  {% if current_round_else %} {{player_previous}} {% endif %}
+        {% if current_round_1 %} {{player_now}} {% endif %} in the last round. <br>
+        Now, you are the {{player_now}}.  </p>
+    <p> <strong> You have a budget of {{Constants.budget}} to spend.</strong> </p> <br> <br>
+    
+    {% if election_round %}
+    <p> 
+       <strong> Watch out! </strong> Elections will happen this round If you get re-elected you can
+       continue making allocation choices. If you are voted out, you have to sit out rounds in our special
+        waiting room until the next elections come up. You continue to earn bonus points while you are in the waiting room,
+        but they depend on your co-players decisions. </p> <br> <br>
+        
+    {% endif %}
+
+   <p>     <strong> Remember </strong>: The amount you allocate to the
+                bureaucrat can be used by them to spend it on common pool
+                projects or directly on your citizens.
+                The budget that you do <strong> not </strong> allocate to
+                the bureaucrat will be allocated to the common pool.
+                The common pool money is multiplied by a random number and
+                divided between you, the bureaucrat and the citizen.
+                The money you keep for other political purposes remains under
+                your control. </p> <br>
+                
+    {% if visible %}
+    <div style="color:#0000FF">
+    <p> Last round the bureaucrat gave {{bureau_alloc}} to the citizen and kept {{bureau_self}} for the bureau. </p>
+    </div>
+    {% endif %}
+    
+    {% formfield group.allocation_pol %}
+
+
+    {% if correct_nom %}
+
+    <p> It will cost you {{group.monitoring_cost}} to give feedback. </p>
+
+    {% formfield group.nominal_given %}
+
+    {% endif %}
+     
+    {% if correct_spec  %}
+
+    <p> It will cost you {{group.monitoring_cost}} to give feedback. </p>
+
+    {% formfield group.specific_given %}
+
+    {% endif %}
+
+    {% next_button %}
+
+     {{ form.specific_given.errors }}  
+
+{% endblock %}
+
+
+   

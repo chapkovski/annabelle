@@ -1,0 +1,113 @@
+{% extends 'otree/WaitPage.html' %}
+{% load staticfiles otree_tags %}
+
+{% block title %}{{ title_text }}{% endblock %}
+{% block content %}
+
+<div id="hideId">
+<center>
+    <br>
+<h4 style="width:85%;text-align:left">We're waiting for more Turkers to join. I know your time is valuable so I'm going to pay you <span style="font-size:130%">1 cent for every 20 seconds</span> you have to wait, as long as you stick with me to the end.</h4>
+<br>
+<input type=hidden id="bonus_var" value=None name="bbonus">
+<br>
+<h3 id="timer"></h3>
+<br>
+<h4>That's an extra $ <a id="bonus"></a> once you finish the game!</h4>
+<br>
+<h4> If you have waited a total of {{Constants.startwp_timer}} minutes and no one has turned up. You will get your waiting time paid out!  </h4>
+</center>
+</div>
+
+
+<div id="yourDiv">
+<center>
+<p>{% include "phd_simple/GameOver.html" %}</p>
+ </div><br>
+ </form>
+<br>
+<br>
+</center>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+
+function get_elapsed_time_string(total_seconds) {
+  function pretty(num) {
+    return num + ( num*100 % 10 == 0 ? "0" : "" ) ;
+  }
+  var minutes = Math.floor(total_seconds / 60);
+  var seconds = Math.floor(total_seconds % 60);
+  var floored_seconds = Math.floor(10*Math.floor(seconds/20))/10;
+  var bonus = pretty(Math.floor(100*(floored_seconds/100 + minutes/8))/100);
+
+  if (minutes == 0){
+      if (seconds == 1){
+          var currentTimeString = "You've been waiting for " + seconds + " second :(";
+      }else{
+          var currentTimeString = "You've been waiting for " + seconds + " seconds :(";
+      }
+  }
+  else if (minutes == 1){
+      if (seconds == 1){
+          var currentTimeString = "You've been waiting for " + minutes + " minute and " +seconds + "second :(";
+      }else{
+          var currentTimeString = "You've been waiting for " + minutes + " minute and " +seconds + " seconds :(";}
+  }else{
+      if (seconds == 1){
+          var currentTimeString = "You've been waiting for " + minutes + " minutes and " +seconds + " second :("
+      }
+      else{
+          var currentTimeString = "You've been waiting for " + minutes + " minutes and " +seconds + " seconds :("
+      }
+  }
+
+  return [currentTimeString,bonus];
+}
+
+var elapsed_seconds = 0;
+setInterval(function() {
+  elapsed_seconds = elapsed_seconds + 1;
+  a = get_elapsed_time_string(elapsed_seconds);
+  document.getElementById('timer').innerHTML = a[0];
+  document.getElementById('bonus').innerHTML = a[1];
+  }, 1000);
+
+setTimeout('$("#hideId").hide()',600*1000);
+
+$(function() {
+       var yourDiv = $("#yourDiv");
+        yourDiv.hide();
+        setTimeout(function(){
+            $("#yourDiv").show();
+        }, 600*1000);
+    });
+
+</script>
+
+<script>
+
+i = 0;
+$(document).ready(function(e){
+
+    var d = new Date();
+    $("#time_stamp_entered").val(d.getTime());
+
+    $("input").keypress(function(e){
+    var d = new Date();
+    $("#time_stamp_click").val(d.getTime());
+    // Different timing, therefore you cannot compute/interpret diffference $("#time_stamp_click").val(e.timeStamp);
+    $("span").text(($("#time_stamp_click").val()-$("#time_stamp_entered").val())/1000);
+    });
+});
+
+</script>
+
+{% endblock %}
+
+
+

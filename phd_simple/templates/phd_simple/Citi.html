@@ -1,0 +1,56 @@
+
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %} Citizens's allocation {% endblock %}
+
+{% block content %}
+    <br>
+      <p> You received {{group.allocation_bureau}} through other players. </p>
+    
+        {% if visible %}
+         <br>
+         <div style="color:#0000FF"> 
+        <p> This round the politician gave {{group.allocation_pol}} to the bureaucrat.
+         The bureaucrat then gave {{group.allocation_bureau}} to you. The politician
+         kept {{group.slack_pol}} for other political purposes. The bureaucrat used
+         {{group.slack_bureau}} on other matters for the bureau. </p>
+         </div>
+        {% endif %}
+        <br>
+
+{% if feedback %}
+
+
+    <br>
+    <p> You can provide the bureaucrat with feedback about their performance </p>
+    <p> What would you like to tell them? </p>
+    
+{% if enough_money %}
+    <p> It will cost you {{group.monitoring_cost}} to give feedback </p>.
+{% endif %}
+
+{% if not_enough_money %}
+    <p> Unfortunately, you do not own enough money to cover the cost of feedback.
+        It costs {{group.monitoring_cost}} to give feedback to the bureaucrat </p>
+{% endif %}
+
+
+{%if correct_nom2 %}
+
+
+    {% formfield group.nominal_given_c %}
+
+{% endif %}
+
+{% if correct_spec2 %}
+
+    {% formfield group.specific_given_c %}
+
+{% endif %}
+
+{% endif %}
+    
+ {% next_button %}
+    
+{% endblock %}

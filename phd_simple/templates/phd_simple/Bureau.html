@@ -1,0 +1,248 @@
+
+{% extends "global/Page.html" %}
+{% load staticfiles otree_tags %}
+
+{% block title %} Bureaucrat's contribution {% endblock %}
+
+{% block content %}
+
+    <p> You have {{group.allocation_pol}} to spend. </p>
+
+{% if visible %}
+<div style="color:#0000FF">
+    <p> The politician allocated {{group.allocation_pol}} to you and {{common_pool_p}}
+        to the common pool in this round. They kept {{group.slack_pol}} for other political
+        purposes. </p>
+</div>
+        
+{% endif %}
+
+ 
+    {% if correct_nom %}
+        
+        {% if nominal_1 %}
+        <p>  The politician has some feedback for you: </p>
+         <div align="center" style="color:#0000FF">  <p>
+         "You exceeded my expectations. You are doing very well in how you allocate budgets."
+        </p>
+        </div>
+        
+        {% elif nominal_2 %}
+        <p>  The politician has some feedback for you: </p>
+         <div align="center" style="color:#0000FF">  <p>
+          "You met my expectations. You can keep allocating budgets as you do."
+        </p>
+        </div>
+        {% else %}
+        <p>  The politician has some feedback for you: </p>
+          <div align="center" style="color:#0000FF"> <p>
+         "You must improve. You should change how you allocate budgets."
+        </p>
+        </div>
+        
+        {% endif %}
+    {% endif %}
+
+    {% if correct_nom_c %}
+
+        {% if nominal_1_c %}
+        <p>  The citizen too has some feedback for you: </p>
+         <div align="center" style="color:#0000FF">  <p>
+         "You exceeded my expectations. You are doing very well in how you allocate budgets."
+        </p>
+        </div>
+        
+        {% elif nominal_2_c %}
+        <p>  The citizen too has some feedback for you: </p>
+         <div align="center" style="color:#0000FF">  <p>
+          "You met my expectations. You can keep allocating budgets as you do."
+        </p>
+        </div>
+        {% else %}
+        <p>  The citizen too has some feedback for you: </p>
+          <div align="center" style="color:#0000FF"> <p>
+         "You must improve. You should change how you allocate budgets."
+        </p>
+        </div>
+        
+        {% endif %}
+
+    {% endif %}
+
+        {% if correct_spec_only %}
+
+            {% if specific_1 %}
+            <br>
+            <p>  The politician has some feedback for you: </p>
+            <br>
+             <div align="center" style="color:#0000FF"> <p>
+             "You are allocating the right amount to the common pool and citizens.
+              Keep playing like you did in the last round."
+             </p>
+             </div>
+    
+            {% elif specific_2 %}
+            <br>
+            <p>  The politician has some feedback for you: </p>
+            <br>
+            <div align="center" style="color:#0000FF"> <p> 
+             "You are allocating <strong> too little </strong> to the <strong> common pool </strong>.
+              I want you to allocate <strong> more </strong> to the <strong> common pool </strong> in
+               the next round than you did in the previous round (round number {{previous_round}}).
+            </p> </div>
+            
+            {% else %}
+            <br>
+            <p>  The politician has some feedback for you: </p>
+            <br>
+            <div align="center" style="color:#0000FF"> <p> 
+             "You are allocating <strong> too much </strong> to the <strong> common pool </strong>.
+             I want you to allocate <strong> more </strong> to the <strong> citizen </strong> in
+             the next round than you did in the previous round (round number {{previous_round}}).
+            </p>
+            </div>
+            
+            {% endif %}
+            {% endif %}
+
+            {% if correct_spec_only_c %}
+            {% if specific_1_c %}
+            <br>
+            <p>  The citizen too has some feedback for you: </p>
+            <br>
+             <div align="center" style="color:#0000FF"> <p>
+             "You are allocating the right amount to the common pool and me.
+              Keep playing like you did in the last round."
+             </p>
+             </div>
+    
+            {% elif specific_2_c %}
+            <br>
+            <p>  The citizen too has some feedback for you: </p>
+            <br>
+            <div align="center" style="color:#0000FF"> <p> 
+             "You are allocating <strong> too little </strong> to the <strong> common pool </strong>.
+              I want you to allocate <strong> more </strong> to the <strong> common pool </strong> in
+               the next round than you did in the previous round (round number {{previous_round}}).
+            </p> </div>
+            
+            {% else %}
+            <br>
+            <p>  The citizen too has some feedback for you: </p>
+            <br>
+            <div align="center" style="color:#0000FF"> <p> 
+             "You are allocating <strong> too much </strong> to the <strong> common pool </strong>.
+             I want you to allocate <strong> more </strong> to the <strong> me </strong> in
+             the next round than you did in the previous round (round number {{previous_round}}).
+            </p>
+            </div>
+            
+            {% endif %}
+            {% endif %}
+
+            
+    {% if correct_agenda %}
+                {% if specific_1 %}
+            <br>
+            <p>  The politician has some feedback for you: </p>
+            <br>
+             <div align="center" style="color:#0000FF"> <p>
+             "You are allocating the right amount to the common pool and citizens.
+              Keep playing like you did in the last round."
+             </p>
+             </div>
+    
+            {% elif specific_2 %}
+            <br>
+            <p>  The politician has some feedback for you: </p>
+            <br>
+            <div align="center" style="color:#0000FF"> <p> 
+             "You are allocating <strong> too little </strong> to the <strong> common pool </strong>.
+              I want you to allocate <strong> more </strong> to the <strong> common pool </strong> in
+               the next round than you did in the previous round (round number {{previous_round}}).
+            </p> </div>
+            
+            {% else %}
+            <br>
+            <p>  The politician has some feedback for you: </p>
+            <br>
+            <div align="center" style="color:#0000FF"> <p> 
+             "You are allocating <strong> too much </strong> to the <strong> common pool </strong>.
+             I want you to allocate <strong> more </strong> to the <strong> citizen </strong> in
+             the next round than you did in the previous round (round number {{previous_round}}).
+            </p>
+            </div>
+            
+            {% endif %}
+    
+    
+    {% if correct_agenda_c %}
+    
+            {% if specific_1_c %}
+            <br>
+            <p>  The citizen too has some feedback for you: </p>
+            <br>
+             <div align="center" style="color:#0000FF"> <p>
+             "You are allocating the right amount to the common pool and me.
+              Keep playing like you did in the last round."
+             </p>
+             </div>
+    
+            {% elif specific_2_c %}
+            <br>
+            <p>  The citizen too has some feedback for you: </p>
+            <br>
+            <div align="center" style="color:#0000FF"> <p> 
+             "You are allocating <strong> too little </strong> to the <strong> common pool </strong>.
+              I want you to allocate <strong> more </strong> to the <strong> common pool </strong> in
+               the next round than you did in the previous round (round number {{previous_round}}).
+            </p> </div>
+            
+            {% else %}
+            <br>
+            <p>  The citizen too has some feedback for you: </p>
+            <br>
+            <div align="center" style="color:#0000FF"> <p> 
+             "You are allocating <strong> too much </strong> to the <strong> common pool </strong>.
+             I want you to allocate <strong> more </strong> to the <strong> me </strong> in
+             the next round than you did in the previous round (round number {{previous_round}}).
+            </p>
+            </div>
+            
+            {% endif %}
+
+
+    <p> Make a plan about how you will act in the next round! </p>
+
+    <p> In the next round, I will allocate my budget the following way: </p>
+    
+    {% formfield group.agenda_feedback %}
+        
+    {% endif %}
+    {% endif %}
+
+
+    
+    <p> Now, please decide how you will allocate the budget. </p>
+    <p>     <strong> Remember </strong>: The budget that you allocate to
+                the citizen goes directly to them.
+                The budget that you do <strong> not </strong> allocate to
+                the citizen will be allocated to the common pool.
+                The common pool money is multiplied by a random number and
+                divided between you, the bureaucrat and the citizen.
+                The money that you allocate to the bureau remains under your
+                discretion. </p>
+
+    <p>
+    
+    
+    {% formfield group.allocation_bureau %}
+
+    </p>
+
+    {{ form.agenda_feedback.errors }}
+    
+    {% next_button %}
+    
+{% endblock %}
+
